@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: service-nest-api
+    ports:
+      - "${APP_PORT}:${CONTAINER_PORT}" # Define as portas usando variáveis do .env
+    env_file:
+      - .env # Importa variáveis do arquivo .env
+    volumes:
+      - .:/usr/src/app # Sincroniza o diretório atual com o contêiner
+      - /usr/src/app/node_modules # Ignora node_modules no compartilhamento de volumes
+    depends_on:
+      - db # Garante que o banco de dados esteja disponível antes de iniciar o app
+
+  db:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    ports:
+      - "${DB_PORT}:${DB_CONTAINER_PORT}" # Porta do banco de dados
+    env_file:
+      - .env # Importa variáveis do arquivo .env
+    volumes:
+      - mysql-data:/var/lib/mysql # Persistência dos dados do banco
+
+volumes:
+  mysql-data:

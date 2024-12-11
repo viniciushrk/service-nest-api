@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "start:dev": "nest start --watch",
+    "start:prod": "node dist/main.js"
+  },
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
