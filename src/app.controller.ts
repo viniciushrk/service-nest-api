@@ -1,4 +1,4 @@
-import { Controller, Get, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Res, HttpStatus } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Response } from 'express';
 
@@ -7,10 +7,9 @@ export class AppController {
   constructor(private readonly appService: AppService) { }
 
   @Get()
-  getHello(): object {
-    return {
-      message: this.appService.getHello(),
-      statusCode: HttpStatus.OK,
-    }
+  getHello(@Res() res: Response) {
+    res.status(200).json({
+      message: 'Resource created successfully!',
+    });
   }
 }
